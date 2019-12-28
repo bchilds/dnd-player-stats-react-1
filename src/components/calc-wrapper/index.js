@@ -34,6 +34,8 @@ export default class CalcWrapper extends React.Component {
     const { stats } = this.state;
     const currentValue = stats[NAME];
     const newValue = currentValue + increment;
+    // for validation, floor/max at stat cap and replace going forward
+
 
     // points based on new _total_ for now, add racial later
     const newStats = {
@@ -72,17 +74,19 @@ export default class CalcWrapper extends React.Component {
       <div className='calc-wrapper' >
         <div className='calc-header'>
           <h3>Points Remaining: {pointsRemaining}</h3>
-          <button onClick={this.resetStats}>Reset</button>
+          <button className='reset-button' onClick={this.resetStats}>Reset</button>
         </div>
-        {Object.entries(stats).map(([key, value]) => { // least efficient method?
-          return (<CalcRow
-            key={key}
-            stat={key}
-            value={value}
-            incrementStat={this.updateStat(key)}
-          />);
-        })
-        }
+        <div className='calc-body'>
+          {Object.entries(stats).map(([key, value]) => { // least efficient method?
+            return (<CalcRow
+              key={key}
+              stat={key}
+              value={value}
+              incrementStat={this.updateStat(key)}
+            />);
+          })
+          }
+        </div>
       </div>
     )
   }

@@ -1,0 +1,12 @@
+.stat-row {
+  width: 300px;
+  margin: 5px auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-input {
+  margin-left: 10px;
+}
