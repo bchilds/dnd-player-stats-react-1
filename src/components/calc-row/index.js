@@ -7,33 +7,34 @@ export default class CalcRow extends React.Component {
   static propTypes = {
     stat: PropTypes.string.isRequired,
     value: PropTypes.number.isRequired,
-    updateStat: PropTypes.func,
+    incrementStat: PropTypes.func,
   };
 
   static defaultProps = {
-    updateStat: noop,
+    incrementStat: noop,
   }
 
-  increaseStat = () => {
-    const { value, updateStat } = this.props;
-    this.updateStat(1);
+  _increaseStat = () => {
+    const { incrementStat } = this.props;
+    incrementStat(1);
   }
 
-  decreaseStat = () => {
-    const { value, updateStat } = this.props;
-    this.updateStat(-1);
+  _decreaseStat = () => {
+    const { incrementStat } = this.props;
+    incrementStat(-1);
   }
 
-  updateStat = newValue => {
-    const { updateStat } = this.props;
-    // validate
-    const valid = true;
-    if (valid) {
-      updateStat(newValue);
+  _maxStat = (e, increment = 1) => {
+    const { value, incrementStat } = this.props;
+    if (value + increment < 15) {
+      return this._maxStat(e, increment + 1);
     }
+
+    incrementStat(increment);
+    return;
   }
 
-  setStatDirectly = e => {
+  _setStatDirectly = e => {
 
   }
 
@@ -45,8 +46,8 @@ export default class CalcRow extends React.Component {
     return (
       <div className='stat-row'>
         {`${stat.toUpperCase()}:`}
-        <input value={value} onChange={this.setStatDirectly}/>
-        <ChangeValues increaseStat={this.increaseStat} decreaseStat={this.decreaseStat} />
+        <input value={value} onChange={this._setStatDirectly}/>
+        <ChangeValues increaseStat={this._increaseStat} decreaseStat={this._decreaseStat} maxStat={this._maxStat} />
       </div>
     );
   }
