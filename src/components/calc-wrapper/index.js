@@ -30,7 +30,7 @@ export default class CalcWrapper extends React.Component {
     });
   }
 
-  updateStat = NAME => increment => {
+  updateStat = (NAME, increment) => {
     const { stats } = this.state;
     const currentValue = stats[NAME];
     const newValue = currentValue + increment;
@@ -77,12 +77,12 @@ export default class CalcWrapper extends React.Component {
           <button className='reset-button' onClick={this.resetStats}>Reset</button>
         </div>
         <div className='calc-body'>
-          {Object.entries(stats).map(([key, value]) => { // least efficient method?
+          {Object.entries(stats).map(([key, value]) => {
             return (<CalcRow
               key={key}
               stat={key}
               value={value}
-              incrementStat={this.updateStat(key)}
+              incrementStat={this.updateStat}
             />);
           })
           }

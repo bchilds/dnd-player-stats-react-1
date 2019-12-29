@@ -17,22 +17,22 @@ export default class CalcRow extends React.Component {
   }
 
   _increaseStat = () => {
-    const { incrementStat } = this.props;
-    incrementStat(1);
+    const { incrementStat, stat } = this.props;
+    incrementStat(stat, 1);
   }
 
   _decreaseStat = () => {
-    const { incrementStat } = this.props;
-    incrementStat(-1);
+    const { incrementStat, stat } = this.props;
+    incrementStat(stat, -1);
   }
 
   _maxStat = (e, increment = 1) => {
-    const { value, incrementStat } = this.props;
+    const { value, incrementStat, stat } = this.props;
     if (value + increment < 15) {
       return this._maxStat(e, increment + 1);
     }
 
-    incrementStat(increment);
+    incrementStat(stat, increment);
     return;
   }
 
